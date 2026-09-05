@@ -269,7 +269,7 @@
   <!-- Pregunta o Consulta -->
   <div class="bloque">
     <label for="preguntaInput">❓ Pregunta o tema de la consulta (Opcional):</label>
-    <input type="text" id="preguntaInput" placeholder="Ej: ¿Qué energía rodea mi futuro cercano?">
+    <input type="text" id="preguntaInput" placeholder="Ej: ¿Tendré novio para diciembre?">
   </div>
 
   <!-- Selección de tirada -->
@@ -310,96 +310,30 @@
     // --- BASE DE DATOS LOCAL DE SIGNIFICADOS DEL TAROT ---
     const baseSignificados = {
       // Arcanos Mayores
-      "EL LOCO": {
-        derecha: "Nuevos comienzos, inocencia, libertad, fe en el futuro y dar un salto de fe.",
-        invertida: "Imprudencia, riesgos innecesarios, descuido, estancamiento por miedo o decisiones precipitadas."
-      },
-      "EL MAGO": {
-        derecha: "Manifestación, recursos disponibles, fuerza de voluntad, habilidad y poder de acción.",
-        invertida: "Manipulación, engaño, talentos no aprovechados, confusión o falta de dirección."
-      },
-      "LA SUMA SACERDOTISA": {
-        derecha: "Intuición, sabiduría interior, misterio, paciencia y conocimiento oculto.",
-        invertida: "Secretos revelados, desconexión de la intuición, superficialidad o represión emocional."
-      },
-      "LA EMPERATRIZ": {
-        derecha: "Abundancia, fertilidad, naturaleza, creatividad, cuidado y nutrición.",
-        invertida: "Bloqueo creativo, dependencia, descuido personal o escasez."
-      },
-      "EL EMPERADOR": {
-        derecha: "Estructura, autoridad, estabilidad, disciplina, liderazgo y orden.",
-        invertida: "Tiranía, falta de disciplina, rigidez excesiva o falta de control."
-      },
-      "EL SUMO SACERDOTE": {
-        derecha: "Tradición, guía espiritual, aprendizaje, instituciones y valores compartidos.",
-        invertida: "Rebelión, ideas poco convencionales, dogmatismo o rigidez de pensamiento."
-      },
-      "LOS ENAMORADOS": {
-        derecha: "Amor, armonía, relaciones profundas, elecciones éticas y alineación de valores.",
-        invertida: "Desarmonía, decisiones erróneas, conflicto de valores o desconexión emocional."
-      },
-      "EL CARRO": {
-        derecha: "Determinación, victoria, avance firme, autocontrol y superar obstáculos.",
-        invertida: "Falta de control, agresividad, falta de dirección o tropiezos inesperados."
-      },
-      "LA JUSTICIA": {
-        derecha: "Verdad, equidad, causa y efecto, justicia y asumir responsabilidad.",
-        invertida: "Injusticia, falta de honestidad, evasión de responsabilidad o juicio injusto."
-      },
-      "EL ERMITAÑO": {
-        derecha: "Introspección, búsqueda de la verdad interior, aislamiento constructivo y guía.",
-        invertida: "Aislamiento excesivo, soledad no deseada, terquedad o rechazo a la ayuda."
-      },
-      "LA RUEDA DE LA FORTUNA": {
-        derecha: "Cambio de ciclo, destino, buena suerte, karma y giros decisivos de la vida.",
-        invertida: "Mala suerte temporal, resistencia al cambio o ciclos repetitivos negativos."
-      },
-      "LA FUERZA": {
-        derecha: "Valentía, paciencia, compasión, autocontrol y fuerza emocional suave.",
-        invertida: "Dudas sobre uno mismo, debilidad emocional, impaciencia o baja autoestima."
-      },
-      "EL COLGADO": {
-        derecha: "Pausa necesaria, cambio de perspectiva, entrega, soltar y paciencia.",
-        invertida: "Resistencia innecesaria, estancamiento prolongado, postergación o sacrificios estériles."
-      },
-      "LA MUERTE": {
-        derecha: "Transformación profunda, fin de un ciclo, renovación, dejar ir lo viejo.",
-        invertida: "Resistencia al cambio, aferrarse al pasado, miedo a la transición o estancamiento."
-      },
-      "TEMPLANZA": {
-        derecha: "Equilibrio, moderación, paciencia, armonía y sanación progresiva.",
-        invertida: "Desequilibrio, excesos, falta de paciencia o conflictos internos."
-      },
-      "EL DIABLO": {
-        derecha: "Apegos, ilusiones materiales, tentación, patrones destructivos o ataduras mentales.",
-        invertida: "Liberación de cadenas, romper hábitos negativos, recuperar el control personal."
-      },
-      "LA TORRE": {
-        derecha: "Cambio repentino, revelación, ruptura de falsas estructuras, liberación forzada.",
-        invertida: "Evitación del desastre, retraso de lo inevitable, miedo al colapso."
-      },
-      "LA ESTRELLA": {
-        derecha: "Esperanza, fe, renovación, inspiración espiritual y claridad de propósito.",
-        invertida: "Desesperanza, falta de fe, desmotivación o pesimismo."
-      },
-      "LA LUNA": {
-        derecha: "Intuición profunda, ilusiones, sombras del subconsciente, incertidumbre.",
-        invertida: "Liberación del miedo, claridad emergente, superación de engaños o ansiedades."
-      },
-      "EL SOL": {
-        derecha: "Éxito, vitalidad, alegría, claridad, entusiasmo y realización personal.",
-        invertida: "Tristeza temporal, optimismo empañado o retraso en el éxito."
-      },
-      "EL JUICIO": {
-        derecha: "Renacimiento, llamada interior, perdón, evaluación y toma de decisiones firmes.",
-        invertida: "Dudas internas, autocrítica destructiva, postergación de decisiones importantes."
-      },
-      "EL MUNDO": {
-        derecha: "Cierre exitoso, plenitud, logro, viaje completado e integración total.",
-        invertida: "Falta de cierre, tareas incompletas, retraso en alcanzar metas."
-      },
+      "EL LOCO": { derecha: "Nuevos comienzos, inocencia, libertad, fe en el futuro y dar un salto de fe.", invertida: "Imprudencia, riesgos innecesarios, descuido, estancamiento por miedo o decisiones precipitadas.", afirmativo: true },
+      "EL MAGO": { derecha: "Manifestación, recursos disponibles, fuerza de voluntad, habilidad y poder de acción.", invertida: "Manipulación, engaño, talentos no aprovechados, confusión o falta de dirección.", afirmativo: true },
+      "LA SUMA SACERDOTISA": { derecha: "Intuición, sabiduría interior, misterio, paciencia y conocimiento oculto.", invertida: "Secretos revelados, desconexión de la intuición, superficialidad o represión emocional.", afirmativo: true },
+      "LA EMPERATRIZ": { derecha: "Abundancia, fertilidad, naturaleza, creatividad, cuidado y nutrición.", invertida: "Bloqueo creativo, dependencia, descuido personal o escasez.", afirmativo: true },
+      "EL EMPERADOR": { derecha: "Estructura, autoridad, estabilidad, disciplina, liderazgo y orden.", invertida: "Tiranía, falta de disciplina, rigidez excesiva o falta de control.", afirmativo: true },
+      "EL SUMO SACERDOTE": { derecha: "Tradición, guía espiritual, aprendizaje, instituciones y valores compartidos.", invertida: "Rebelión, ideas poco convencionales, dogmatismo o rigidez de pensamiento.", afirmativo: true },
+      "LOS ENAMORADOS": { derecha: "Amor, armonía, relaciones profundas, elecciones éticas y alineación de valores.", invertida: "Desarmonía, decisiones erróneas, conflicto de valores o desconexión emocional.", afirmativo: true },
+      "EL CARRO": { derecha: "Determinación, victoria, avance firme, autocontrol y superar obstáculos.", invertida: "Falta de control, agresividad, falta de dirección o tropiezos inesperados.", afirmativo: true },
+      "LA JUSTICIA": { derecha: "Verdad, equidad, causa y efecto, justicia y asumir responsabilidad.", invertida: "Injusticia, falta de honestidad, evasión de responsabilidad o juicio injusto.", afirmativo: true },
+      "EL ERMITAÑO": { derecha: "Introspección, búsqueda de la verdad interior, aislamiento constructivo y guía.", invertida: "Aislamiento excesivo, soledad no deseada, terquedad o rechazo a la ayuda.", afirmativo: false },
+      "LA RUEDA DE LA FORTUNA": { derecha: "Cambio de ciclo, destino, buena suerte, karma y giros decisivos de la vida.", invertida: "Mala suerte temporal, resistencia al cambio o ciclos repetitivos negativos.", afirmativo: true },
+      "LA FUERZA": { derecha: "Valentía, paciencia, compasión, autocontrol y fuerza emocional suave.", invertida: "Dudas sobre uno mismo, debilidad emocional, impaciencia o baja autoestima.", afirmativo: true },
+      "EL COLGADO": { derecha: "Pausa necesaria, cambio de perspectiva, entrega, soltar y paciencia.", invertida: "Resistencia innecesaria, estancamiento prolongado, postergación o sacrificios estériles.", afirmativo: false },
+      "LA MUERTE": { derecha: "Transformación profunda, fin de un ciclo, renovación, dejar ir lo viejo.", invertida: "Resistencia al cambio, aferrarse al pasado, miedo a la transición o estancamiento.", afirmativo: false },
+      "TEMPLANZA": { derecha: "Equilibrio, moderación, paciencia, armonía y sanación progresiva.", invertida: "Desequilibrio, excesos, falta de paciencia o conflictos internos.", afirmativo: true },
+      "EL DIABLO": { derecha: "Apegos, ilusiones materiales, tentación, patrones destructivos o ataduras mentales.", invertida: "Liberación de cadenas, romper hábitos negativos, recuperar el control personal.", afirmativo: false },
+      "LA TORRE": { derecha: "Cambio repentino, revelación, ruptura de falsas estructuras, liberación forzada.", invertida: "Evitación del desastre, retraso de lo inevitable, miedo al colapso.", afirmativo: false },
+      "LA ESTRELLA": { derecha: "Esperanza, fe, renovación, inspiración espiritual y claridad de propósito.", invertida: "Desesperanza, falta de fe, desmotivación o pesimismo.", afirmativo: true },
+      "LA LUNA": { derecha: "Intuición profunda, ilusiones, sombras del subconsciente, incertidumbre.", invertida: "Liberación del miedo, claridad emergente, superación de engaños o ansiedades.", afirmativo: false },
+      "EL SOL": { derecha: "Éxito, vitalidad, alegría, claridad, entusiasmo y realización personal.", invertida: "Tristeza temporal, optimismo empañado o retraso en el éxito.", afirmativo: true },
+      "EL JUICIO": { derecha: "Renacimiento, llamada interior, perdón, evaluación y toma de decisiones firmes.", invertida: "Dudas internas, autocrítica destructiva, postergación de decisiones importantes.", afirmativo: true },
+      "EL MUNDO": { derecha: "Cierre exitoso, plenitud, logro, viaje completado e integración total.", invertida: "Falta de cierre, tareas incompletas, retraso en alcanzar metas.", afirmativo: true },
 
-      // Arcanos Menores (Significados Generales)
+      // Arcanos Menores
       "Bastos": "Relacionado con la energía, creatividad, pasión, proyectos laborales y voluntad de acción.",
       "Copas": "Relacionado con los sentimientos, el amor, las emociones, la intuición y las relaciones personales.",
       "Espadas": "Relacionado con la mente, los pensamientos, la verdad, los desafíos y las decisiones difíciles.",
@@ -492,8 +426,8 @@
       const cuadroTxt = document.getElementById('cuadroInterpretacion');
       const btn = document.getElementById('btnInterpretar');
       const pregunta = document.getElementById('preguntaInput').value.trim();
-
       const tipo = document.getElementById('tipoTirada').value;
+
       const posiciones = esquemasTiradas[tipo];
       let lecturasPosiciones = [];
 
@@ -539,6 +473,11 @@
           return `- Posición "${item.posicion}": ${desc}`;
         }).join("\n");
 
+        let instrucciónEspecial = "";
+        if (tipo === "sino") {
+          instrucciónEspecial = `\n\nIMPORTANTE: Esta es una tirada de Respuesta SÍ / NO. Tras hacer el análisis, concluye OBLIGATORIAMENTE al final de todo el texto con una línea final clara que responda directamente a la pregunta con SÍ o NO (por ejemplo: "VEREDICTO FINAL: Sí, tendrás novio para diciembre" o "VEREDICTO FINAL: No, no tendrás novio para diciembre").`;
+        }
+
         const promptTexto = `Eres un tarotista profesional con profundo conocimiento místico y simbólico.
 Analiza la siguiente tirada e integra tanto los Arcanos Mayores como Menores con sus posiciones y orientaciones.
 
@@ -550,17 +489,17 @@ ${resumen}
 Proporciona:
 1. Una síntesis y balance general de la lectura.
 2. Un desglose interpretativo claro combinando la carta y su posición.
-3. Una conclusión o consejo místico final.`;
+3. Una conclusión o consejo místico final.${instrucciónEspecial}`;
 
         try {
           const { data } = await llamarGeminiAPI(apiKey, promptTexto);
           if (data.candidates && data.candidates[0].content.parts[0].text) {
             cuadroTxt.value = data.candidates[0].content.parts[0].text;
           } else {
-            cuadroTxt.value = "Error al recibir la lectura. Generando interpretación local de respaldo...\n\n" + generarLecturaLocal(lecturasPosiciones, pregunta);
+            cuadroTxt.value = "Error al recibir la lectura. Generando interpretación local de respaldo...\n\n" + generarLecturaLocal(lecturasPosiciones, pregunta, tipo);
           }
         } catch (err) {
-          cuadroTxt.value = "Error de conexión con la IA. Generando lectura con la base de datos mística interna:\n\n" + generarLecturaLocal(lecturasPosiciones, pregunta);
+          cuadroTxt.value = "Error de conexión con la IA. Generando lectura con la base de datos mística interna:\n\n" + generarLecturaLocal(lecturasPosiciones, pregunta, tipo);
         } finally {
           btn.disabled = false;
         }
@@ -569,14 +508,14 @@ Proporciona:
       else {
         cuadroTxt.value = "Revelando los arcanos desde el oráculo interno... 📜";
         setTimeout(() => {
-          cuadroTxt.value = generarLecturaLocal(lecturasPosiciones, pregunta);
+          cuadroTxt.value = generarLecturaLocal(lecturasPosiciones, pregunta, tipo);
           btn.disabled = false;
         }, 500);
       }
     }
 
     // GENERADOR DE LECTURAS LOCAL (SIN API)
-    function generarLecturaLocal(lecturas, pregunta) {
+    function generarLecturaLocal(lecturas, pregunta, tipo) {
       let resultado = "=========================================\n";
       resultado += "       🔮 LECTURA DEL ORÁCULO 🔮       \n";
       resultado += "=========================================\n\n";
@@ -586,6 +525,9 @@ Proporciona:
       }
 
       resultado += "--- DESGLOSE DE LAS POSICIONES ---\n\n";
+
+      let puntosAfirmativos = 0;
+      let puntosNegativos = 0;
 
       lecturas.forEach(item => {
         resultado += `📍 ${item.posicion.toUpperCase()}\n`;
@@ -597,6 +539,9 @@ Proporciona:
             const sig = baseSignificados[carta.nombre];
             if (sig) {
               resultado += `  Significado: ${carta.invertida ? sig.invertida : sig.derecha}\n`;
+              // Evaluación de Sí/No
+              if (!carta.invertida && sig.afirmativo) puntosAfirmativos += 2;
+              else puntosNegativos += 2;
             } else {
               resultado += `  Representa las fuerzas arquetípicas en tu camino.\n`;
             }
@@ -610,6 +555,9 @@ Proporciona:
 
             resultado += `  Energía general: ${baseSignificados[palo] || 'Influencia en la vida cotidiana.'}\n`;
             resultado += `  Orientación: ${carta.invertida ? 'Indica desequilibrio, retraso o aprendizaje bloqueado en esta área.' : 'Fluidez, manifestación positiva y acción activa en esta área.'}\n`;
+            
+            if (!carta.invertida) puntosAfirmativos += 1;
+            else puntosNegativos += 1;
           }
         });
         resultado += "\n";
@@ -618,7 +566,23 @@ Proporciona:
       resultado += "-----------------------------------------\n";
       resultado += "✨ SÍNTESIS Y CONSEJO DEL ORÁCULO ✨\n";
       resultado += "-----------------------------------------\n";
-      resultado += "Las cartas revelan un mapa de tus energías actuales. Recuerda que los arcanos señalan tendencias e influencias, pero el libre albedrío y tus decisiones moldean siempre el resultado final. Medita en los mensajes expuestos para tomar el camino con mayor sabiduría.";
+      resultado += "Las cartas revelan un mapa de tus energías actuales. Recuerda que los arcanos señalan tendencias e influencias, pero el libre albedrío y tus decisiones moldean siempre el resultado final.\n\n";
+
+      // AGREGAR VEREDICTO DE SÍ / NO AL FINAL SI ES ESTA TIRADA
+      if (tipo === "sino") {
+        resultado += "-----------------------------------------\n";
+        resultado += "📢 VEREDICTO DEL ORÁCULO (SÍ / NO):\n";
+        resultado += "-----------------------------------------\n";
+
+        const esSi = puntosAfirmativos >= puntosNegativos;
+        const textoPregunta = pregunta ? pregunta.replace(/^[¿?]+|[¿?]+$/g, '').trim() : "tu consulta";
+
+        if (esSi) {
+          resultado += `✅ SÍ, las energías son favorables para que se concrete: "${textoPregunta}".`;
+        } else {
+          resultado += `❌ NO, actualmente hay bloqueos o retrasos que dificultan que se concrete: "${textoPregunta}".`;
+        }
+      }
 
       return resultado;
     }
