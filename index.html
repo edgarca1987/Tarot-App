@@ -1,193 +1,376 @@
-<script>
-  const arcanosMayoresDB = {
-    "Ninguno": { normal: "", invertida: "" },
-    "EL LOCO": { normal: "Locura, irreflexión, extravagancia, falta de disciplina, pasión e inicio de aventura.", invertida: "Descuido, ausencia, indecisión, apatía, mala elección." },
-    "EL MAGO": { normal: "Habilidad, diplomacia, autoestima, flexibilidad, dominio de recursos.", invertida: "Falta de voluntad, torpeza, inseguridad, manipulación de intenciones." },
-    "LA SUMA SACERDOTISA": { normal: "Sabiduría, sentido común, intuición, serenidad, verdades profundas.", invertida: "Ignorancia, incomprensión, egoísmo, juicios superficiales." },
-    "LA EMPERATRIZ": { normal: "Éxito, fecundidad, abundancia material, creación, crecimiento.", invertida: "Inactividad, indecisión, derroche, infidelidad, bloqueo creativo." },
-    "EL EMPERADOR": { normal: "Estabilidad, autoridad, poder mundano, estructura, convicción.", invertida: "Inmadurez, debilidad, tiranía, incapacidad de controlar emociones." },
-    "EL SUMO SACERDOTE": { normal: "Inspiración, guía espiritual, costumbres, consejo, indulgencia.", invertida: "Servilismo, fragilidad, exceso de amabilidad, dogmatismo." },
-    "LOS ENAMORADOS": { normal: "Amor, alianza, belleza, superar pruebas, elección consciente.", invertida: "Incapacidad de superar pruebas, infidelidad, frustración, separación." },
-    "EL CARRO": { normal: "Éxito, superación de adversidades, determinación, avance decidido.", invertida: "Derrota, fracaso, pérdida de control, huida de la realidad." },
-    "LA JUSTICIA": { normal: "Armonía, equidad, virtud, justa recompensa, resolución legal.", invertida: "Injusticia, acusaciones falsas, fanatismo, severidad." },
-    "EL ERMITAÑO": { normal: "Consejo, prudencia, búsqueda interior, precaución.", invertida: "Imprudencia, aislamiento estéril, precipitación, inmadurez." },
-    "LA RUEDA DE LA FORTUNA": { normal: "Destino, giros favorables, cambio inevitable, suerte.", invertida: "Fracaso, contratiempos inesperados, interrupciones." },
-    "LA FUERZA": { normal: "Valor, fuerza interior, resolución, convicción, autodominio.", invertida: "Debilidad, tiranía, falta de confianza, enfermedad." },
-    "EL COLGADO": { normal: "Nueva perspectiva, sacrificio consciente, pausa, regeneración.", invertida: "Apatía, sacrificio inútil, egoísmo, estancamiento." },
-    "LA MUERTE": { normal: "Transformación, fin de un ciclo, cierre inevitable, renovación.", invertida: "Inercia, resistencia al cambio, estancamiento doloroso." },
-    "TEMPLANZA": { normal: "Moderación, adaptación, armonía, equilibrio interior.", invertida: "Discordia, conflicto, impaciencia, falta de integración." },
-    "EL DIABLO": { normal: "Ataduras, pasión ciega, materialismo, impulsos ocultos.", invertida: "Liberación de cadenas, despertar, tregua." },
-    "LA TORRE": { normal: "Cambio abrupto, ruptura de falsas estructuras, liberación forzada.", invertida: "Atrapado en la rutina, opresión continua, retraso de la crisis." },
-    "LA ESTRELLA": { normal: "Esperanza, inspiración, perspectivas brillantes, sanación.", invertida: "Esperanzas perdidas, decepción, pesimismo." },
-    "LA LUNA": { normal: "Intuición, ilusiones, miedos subconscientes, confusión.", invertida: "Superación de engaños, claridad progresiva, desaciertos menores." },
-    "EL SOL": { normal: "Éxito, claridad, alegría, energía vital, realización.", invertida: "Soledad, proyectos demorados, falta de claridad." },
-    "EL JUICIO": { normal: "Renacimiento, llamada del destino, perdón, decisiones definitivas.", invertida: "Retraso, indecisión, incapacidad para comprender los hechos." },
-    "EL MUNDO": { normal: "Cierre exitoso, plenitud, logro total, realización.", invertida: "Imperfección, proyectos incompletos, retraso del éxito." }
-  };
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lectura de Tarot Mística con IA</title>
+  
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#120e1e">
+  <meta name="apple-mobile-web-app-title" content="Tarot Místico">
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/3204/3204021.png">
+  <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3204/3204021.png">
 
-  const arcanosMenoresDB = {
-    "Ninguno": { normal: "", invertida: "" },
-    "Rey de Bastos": { normal: "Liderazgo, lealtad, visión de negocios.", invertida: "Dogmatismo, severidad, autoridad destructiva." },
-    "Reina de Bastos": { normal: "Energía, amabilidad, capacidad práctica.", invertida: "Inconstancia, celos, emociones volubles." },
-    "Caballo de Bastos": { normal: "Viajes, acción rápida, dinamismo.", invertida: "Interrupciones, discusiones, desorganización." },
-    "Sota de Bastos": { normal: "Buenas noticias, entusiasmo, lealtad.", invertida: "Inestabilidad, indecisión, chismes." },
-    "As de Bastos": { normal: "Iniciativa, nuevo proyecto, pasión.", invertida: "Futuro sombrío, comienzos difíciles." },
-    "Rey de Copas": { normal: "Madurez emocional, empatía, sabiduría.", invertida: "Engaño, manipulación emocional, vicios." },
-    "Reina de Copas": { normal: "Intuición, amor devoto, contención.", invertida: "Inestabilidad emocional, falta de confianza." },
-    "Caballo de Copas": { normal: "Oportunidad romántica, propuesta, arte.", invertida: "Falsedad, adulación, trampas." },
-    "Sota de Copas": { normal: "Reflexión, mensaje afectivo, creatividad.", invertida: "Seducción engañosa, susceptibilidad." },
-    "As de Copas": { normal: "Amor puro, plenitud emocional, fertilidad.", invertida: "Inestabilidad emocional, amor no correspondido." },
-    "Rey de Espadas": { normal: "Intelecto, claridad mental, justicia firme.", invertida: "Crueldad, egoísmo, conflicto deliberado." },
-    "Reina de Espadas": { normal: "Percepción aguda, independencia, perspicacia.", invertida: "Fanatismo, venganza, amargura." },
-    "Caballo de Espadas": { normal: "Valentía, franqueza, determinación.", invertida: "Imprudencia, desacuerdos, caos." },
-    "Sota de Espadas": { normal: "Vigilancia, agilidad mental, curiosidad.", invertida: "Impostura, noticias imprevistas." },
-    "As de Espadas": { normal: "Triunfo de la verdad, gran determinación.", invertida: "Obstáculos, tiranía, confusión mental." },
-    "Rey de Oros": { normal: "Éxito financiero, seguridad, abundancia.", invertida: "Avaricia, corrupción, materialismo rígido." },
-    "Reina de Oros": { normal: "Generosidad, bienestar, prosperidad práctica.", invertida: "Incertidumbre, sospecha, negligencia." },
-    "Caballo de Oros": { normal: "Perseverancia, responsabilidad, trabajo constante.", invertida: "Negligencia, estancamiento, pereza." },
-    "Sota de Oros": { normal: "Estudio, nuevas oportunidades económicas.", invertida: "Malgasto, falta de lógica, pérdidas." },
-    "As de Oros": { normal: "Prosperidad, regalo del destino, éxito material.", invertida: "Riqueza vacía, codicia, contratiempos financieros." }
-  };
-
-  const esquemasTiradas = {
-    sino: ["Respuesta / Situación Actual"],
-    tres: ["1. Pasado", "2. Presente", "3. Futuro"],
-    cruz: [
-      "1. Carta del Consultante",
-      "2. Lo que le cubre (Ambiente e influencias)",
-      "3. Lo que le cruza (Fuerzas opuestas)",
-      "4. Lo que queda debajo (Base del asunto)",
-      "5. Lo que queda detrás (Acontecimientos superados)",
-      "6. Lo que corona (Futuro próximo)",
-      "7. Lo que queda delante (Lo que sucederá en el futuro)",
-      "8. Sus peores temores (Aspectos negativos)",
-      "9. Ambiente familiar y social",
-      "10. Sueños y esperanzas",
-      "11. Resultado final"
-    ]
-  };
-
-  function generarOpcionesSelect(baseDatos) {
-    return Object.keys(baseDatos).map(c => `<option value="${c}">${c}</option>`).join('');
-  }
-
-  function generarFormularioTirada() {
-    const tipo = document.getElementById('tipoTirada').value;
-    const contenedor = document.getElementById('contenedorPosiciones');
-    contenedor.innerHTML = '';
-
-    const posiciones = esquemasTiradas[tipo];
-    const opcionesMayores = generarOpcionesSelect(arcanosMayoresDB);
-    const opcionesMenores = generarOpcionesSelect(arcanosMenoresDB);
-
-    posiciones.forEach((pos, index) => {
-      contenedor.innerHTML += `
-        <div class="posicion-box">
-          <h4>✨ ${pos}</h4>
-          <label for="mayor_${index}">Arcanos Mayores:</label>
-          <select id="mayor_${index}" onchange="limpiarOtroSelect(${index}, 'mayor')">
-            ${opcionesMayores}
-          </select>
-          <label class="checkbox-label">
-            <input type="checkbox" id="inv_mayor_${index}"> 🔄 ¿Salió volteada / invertida?
-          </label>
-          <br>
-          <label for="menor_${index}">Arcanos Menores:</label>
-          <select id="menor_${index}" onchange="limpiarOtroSelect(${index}, 'menor')">
-            ${opcionesMenores}
-          </select>
-          <label class="checkbox-label">
-            <input type="checkbox" id="inv_menor_${index}"> 🔄 ¿Salió volteada / invertida?
-          </label>
-        </div>
-      `;
-    });
-  }
-
-  function limpiarOtroSelect(index, origen) {
-    if (origen === 'mayor' && document.getElementById(`mayor_${index}`).value !== "Ninguno") {
-      document.getElementById(`menor_${index}`).value = "Ninguno";
-    } else if (origen === 'menor' && document.getElementById(`menor_${index}`).value !== "Ninguno") {
-      document.getElementById(`mayor_${index}`).value = "Ninguno";
+  <style>
+    body {
+      font-family: 'Cinzel', 'Segoe UI', serif;
+      background: radial-gradient(circle at 50% 20%, #2e1065 0%, #0d0714 70%, #05020a 100%);
+      background-attachment: fixed;
+      color: #f3e8ff;
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+      position: relative;
+      min-height: 100vh;
     }
-  }
 
-  function interpretarTirada() {
-    const tipo = document.getElementById('tipoTirada').value;
-    const posiciones = esquemasTiradas[tipo];
-    
-    let contadorMayores = 0;
-    let contadorMenores = 0;
-    let contadorInvertidas = 0;
-    let desgloseDetallado = "";
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: 
+        radial-gradient(2px 2px at 20px 30px, #d8b4fe, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 40px 70px, #e9d5ff, rgba(0,0,0,0)),
+        radial-gradient(3px 3px at 150px 180px, #fbbf24, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 250px 300px, #a855f7, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 400px 400px, #fef08a, rgba(0,0,0,0));
+      background-repeat: repeat;
+      background-size: 500px 500px;
+      opacity: 0.4;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-    posiciones.forEach((pos, i) => {
-      const valMayor = document.getElementById(`mayor_${i}`).value;
-      const invMayor = document.getElementById(`inv_mayor_${i}`).checked;
-      const valMenor = document.getElementById(`menor_${i}`).value;
-      const invMenor = document.getElementById(`inv_menor_${i}`).checked;
+    .header-mistico {
+      text-align: center;
+      margin-bottom: 30px;
+    }
 
-      let cartaNombre = "Ninguna";
-      let esInvertida = false;
-      let significado = "";
-      let esMayor = false;
+    h1 {
+      color: #fef08a;
+      font-size: 2.3rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-shadow: 0 0 12px rgba(251, 191, 36, 0.4), 0 0 25px rgba(168, 85, 247, 0.6);
+      margin-bottom: 5px;
+    }
 
-      // Evaluación corregida: detecta adecuadamente el Arcano Mayor seleccionado
-      if (valMayor !== "Ninguno") {
-        cartaNombre = valMayor;
-        esInvertida = invMayor;
-        esMayor = true;
-        contadorMayores++;
-        if (tipo === 'cruz' && i === 2) esInvertida = false;
-        significado = esInvertida ? arcanosMayoresDB[valMayor].invertida : arcanosMayoresDB[valMayor].normal;
-      } else if (valMenor !== "Ninguno") {
-        cartaNombre = valMenor;
-        esInvertida = invMenor;
-        contadorMenores++;
-        if (tipo === 'cruz' && i === 2) esInvertida = false;
-        significado = esInvertida ? (arcanosMenoresDB[valMenor]?.invertida || "Sin datos") : (arcanosMenoresDB[valMenor]?.normal || "Sin datos");
+    .subtitulo {
+      color: #c084fc;
+      font-style: italic;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+
+    .fases-lunares {
+      color: #fbbf24;
+      font-size: 1.4rem;
+      letter-spacing: 8px;
+      margin-top: 5px;
+      opacity: 0.8;
+    }
+
+    .bloque {
+      background: rgba(23, 15, 38, 0.75);
+      backdrop-filter: blur(10px);
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(168, 85, 247, 0.3);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.6), inset 0 0 15px rgba(168, 85, 247, 0.1);
+    }
+
+    h2, h3 {
+      color: #e9d5ff;
+      text-align: center;
+      letter-spacing: 1.5px;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+      color: #d8b4fe;
+    }
+
+    input[type="text"], input[type="password"], select, textarea {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #6b21a8;
+      font-size: 15px;
+      margin-top: 8px;
+      box-sizing: border-box;
+      background: rgba(15, 9, 26, 0.85);
+      color: #f3e8ff;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: #fbbf24;
+      box-shadow: 0 0 10px rgba(251, 191, 36, 0.4);
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      font-weight: normal;
+      margin-top: 10px;
+      cursor: pointer;
+      color: #c084fc;
+    }
+
+    input[type="checkbox"] {
+      accent-color: #a855f7;
+      transform: scale(1.3);
+      margin-right: 10px;
+      cursor: pointer;
+    }
+
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #6b21a8 0%, #4c1d95 50%, #2e1065 100%);
+      color: #fef08a;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 17px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #fbbf24;
+      margin-top: 20px;
+      box-shadow: 0 0 15px rgba(107, 33, 168, 0.5);
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(135deg, #7e22ce 0%, #581c87 50%, #3b0764 100%);
+      box-shadow: 0 0 20px rgba(251, 191, 36, 0.6);
+      transform: translateY(-2px);
+    }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    textarea {
+      font-family: 'Consolas', monospace, sans-serif;
+      resize: vertical;
+      line-height: 1.6;
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+
+    .posicion-box {
+      background: rgba(30, 19, 50, 0.6);
+      padding: 18px;
+      border-radius: 10px;
+      margin-top: 18px;
+      border-left: 4px solid #fbbf24;
+      border-top: 1px solid rgba(168, 85, 247, 0.2);
+      border-right: 1px solid rgba(168, 85, 247, 0.2);
+      border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+    }
+
+    .posicion-box h4 {
+      margin: 0 0 10px 0;
+      color: #fef08a;
+      font-size: 1.1rem;
+      letter-spacing: 1px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-mistico">
+    <div class="fases-lunares">🌒 🌓 🌔 🌕 🌖 🌗 🌘</div>
+    <h1>Oráculo & Tarot IA</h1>
+    <div class="subtitulo">Lectura e Interpretación Astral en Tiempo Real</div>
+  </div>
+
+  <!-- Configuración de API Key -->
+  <div class="bloque">
+    <label for="apiKeyInput">🔑 Clave API de Gemini:</label>
+    <input type="password" id="apiKeyInput" placeholder="Ingresa tu GEMINI_API_KEY aquí...">
+    <label for="preguntaInput">❓ Pregunta o tema de la consulta (Opcional):</label>
+    <input type="text" id="preguntaInput" placeholder="Ej: ¿Qué debo tomar en cuenta para mi decisión laboral?">
+  </div>
+
+  <!-- Selección de tirada -->
+  <div class="bloque">
+    <label for="tipoTirada">📜 Selecciona el tipo de tirada</label>
+    <select id="tipoTirada" onchange="generarFormularioTirada()">
+      <option value="sino">Respuesta Sí / No (1 carta)</option>
+      <option value="tres">Pasado, Presente y Futuro (3 cartas)</option>
+      <option value="cruz">Cruz Celta Tradicional (11 cartas)</option>
+    </select>
+  </div>
+
+  <!-- Selección de Cartas -->
+  <div class="bloque">
+    <h2>🎴 Cartas Seleccionadas</h2>
+    <div id="contenedorPosiciones"></div>
+    <button id="btnInterpretar" onclick="interpretarConIA()">✨ Generar Interpretación con IA ✨</button>
+  </div>
+
+  <!-- Resultado -->
+  <div class="bloque">
+    <h3>🔮 Revelación del Oráculo</h3>
+    <textarea id="cuadroInterpretacion" rows="18" readonly placeholder="La interpretación asistida por IA aparecerá aquí..."></textarea>
+  </div>
+
+  <script>
+    const arcanosMayoresList = [
+      "Ninguno", "EL LOCO", "EL MAGO", "LA SUMA SACERDOTISA", "LA EMPERATRIZ", "EL EMPERADOR",
+      "EL SUMO SACERDOTE", "LOS ENAMORADOS", "EL CARRO", "LA JUSTICIA", "EL ERMITAÑO",
+      "LA RUEDA DE LA FORTUNA", "LA FUERZA", "EL COLGADO", "LA MUERTE", "TEMPLANZA",
+      "EL DIABLO", "LA TORRE", "LA ESTRELLA", "LA LUNA", "EL SOL", "EL JUICIO", "EL MUNDO"
+    ];
+
+    const arcanosMenoresList = [
+      "Ninguno",
+      "Rey de Bastos", "Reina de Bastos", "Caballo de Bastos", "Sota de Bastos", "As de Bastos",
+      "Rey de Copas", "Reina de Copas", "Caballo de Copas", "Sota de Copas", "As de Copas",
+      "Rey de Espadas", "Reina de Espadas", "Caballo de Espadas", "Sota de Espadas", "As de Espadas",
+      "Rey de Oros", "Reina de Oros", "Caballo de Oros", "Sota de Oros", "As de Oros"
+    ];
+
+    const esquemasTiradas = {
+      sino: ["Respuesta / Situación Actual"],
+      tres: ["1. Pasado", "2. Presente", "3. Futuro"],
+      cruz: [
+        "1. Carta del Consultante",
+        "2. Lo que le cubre (Ambiente e influencias)",
+        "3. Lo que le cruza (Fuerzas opuestas)",
+        "4. Lo que queda debajo (Base del asunto)",
+        "5. Lo que queda detrás (Acontecimientos superados)",
+        "6. Lo que corona (Futuro próximo)",
+        "7. Lo que queda delante (Lo que sucederá en el futuro)",
+        "8. Sus peores temores (Aspectos negativos)",
+        "9. Ambiente familiar y social",
+        "10. Sueños y esperanzas",
+        "11. Resultado final"
+      ]
+    };
+
+    function generarFormularioTirada() {
+      const tipo = document.getElementById('tipoTirada').value;
+      const contenedor = document.getElementById('contenedorPosiciones');
+      contenedor.innerHTML = '';
+
+      const posiciones = esquemasTiradas[tipo];
+      const optMayores = arcanosMayoresList.map(c => `<option value="${c}">${c}</option>`).join('');
+      const optMenores = arcanosMenoresList.map(c => `<option value="${c}">${c}</option>`).join('');
+
+      posiciones.forEach((pos, index) => {
+        contenedor.innerHTML += `
+          <div class="posicion-box">
+            <h4>✨ ${pos}</h4>
+            <label for="mayor_${index}">Arcano Mayor:</label>
+            <select id="mayor_${index}" onchange="limpiarOtroSelect(${index}, 'mayor')">${optMayores}</select>
+            <label class="checkbox-label">
+              <input type="checkbox" id="inv_mayor_${index}"> 🔄 Invertida
+            </label>
+            <br>
+            <label for="menor_${index}">Arcano Menor:</label>
+            <select id="menor_${index}" onchange="limpiarOtroSelect(${index}, 'menor')">${optMenores}</select>
+            <label class="checkbox-label">
+              <input type="checkbox" id="inv_menor_${index}"> 🔄 Invertida
+            </label>
+          </div>
+        `;
+      });
+    }
+
+    function limpiarOtroSelect(index, origen) {
+      if (origen === 'mayor' && document.getElementById(`mayor_${index}`).value !== "Ninguno") {
+        document.getElementById(`menor_${index}`).value = "Ninguno";
+      } else if (origen === 'menor' && document.getElementById(`menor_${index}`).value !== "Ninguno") {
+        document.getElementById(`mayor_${index}`).value = "Ninguno";
+      }
+    }
+
+    async function interpretarConIA() {
+      const apiKey = document.getElementById('apiKeyInput').value.trim();
+      const cuadroTxt = document.getElementById('cuadroInterpretacion');
+      const btn = document.getElementById('btnInterpretar');
+      const pregunta = document.getElementById('preguntaInput').value.trim();
+
+      if (!apiKey) {
+        alert("Por favor ingresa tu API Key para conectar con el servicio en línea.");
+        return;
       }
 
-      if (cartaNombre !== "Ninguna" && esInvertida) contadorInvertidas++;
+      const tipo = document.getElementById('tipoTirada').value;
+      const posiciones = esquemasTiradas[tipo];
+      let resumenCartas = [];
 
-      const estado = esInvertida ? "VOLTEADA (Invertida)" : "DERECHA";
-      const tipoArcano = esMayor ? "[Arcano Mayor]" : (cartaNombre !== "Ninguna" ? "[Arcano Menor]" : "");
+      posiciones.forEach((pos, i) => {
+        const valMayor = document.getElementById(`mayor_${i}`).value;
+        const invMayor = document.getElementById(`inv_mayor_${i}`).checked;
+        const valMenor = document.getElementById(`menor_${i}`).value;
+        const invMenor = document.getElementById(`inv_menor_${i}`).checked;
 
-      desgloseDetallado += `📌 POSICIÓN: ${pos.toUpperCase()}\n`;
-      desgloseDetallado += `   Carta: ${cartaNombre} ${tipoArcano} - ${estado}\n`;
-      desgloseDetallado += `   Impacto: ${significado || "Sin carta seleccionada"}\n\n`;
-    });
+        if (valMayor !== "Ninguno") {
+          let orientacion = (tipo === 'cruz' && i === 2) ? 'Derecha (Regla Cruz Celta)' : (invMayor ? 'Invertida' : 'Derecha');
+          resumenCartas.push(`- Posición "${pos}": Arcano Mayor "${valMayor}" (${orientacion})`);
+        } else if (valMenor !== "Ninguno") {
+          let orientacion = (tipo === 'cruz' && i === 2) ? 'Derecha (Regla Cruz Celta)' : (invMenor ? 'Invertida' : 'Derecha');
+          resumenCartas.push(`- Posición "${pos}": Arcano Menor "${valMenor}" (${orientacion})`);
+        }
+      });
 
-    let balanceArcanos = "";
-    if (contadorMayores > contadorMenores) {
-      balanceArcanos = "Predominan los ARCANOS MAYORES: Fuerzas del destino y transformaciones profundas en camino.";
-    } else if (contadorMenores > contadorMayores) {
-      balanceArcanos = "Predominan los ARCANOS MENORES: Asuntos cotidianos, decisiones del día a día y acciones directas.";
-    } else if (contadorMayores > 0) {
-      balanceArcanos = "EQUILIBRIO: Las acciones cotidianas están alineadas con lecciones del destino.";
-    } else {
-      balanceArcanos = "Sin selección de cartas suficiente.";
+      if (resumenCartas.length === 0) {
+        alert("Por favor selecciona al menos una carta para realizar la lectura.");
+        return;
+      }
+
+      btn.disabled = true;
+      cuadroTxt.value = "Consultando con las estrellas y la IA... Por favor espera un momento 🔮";
+
+      const promptTexto = `Eres un tarotista profesional con profundo conocimiento místico y simbólico.
+Analiza la siguiente tirada de tarot e integra tanto los Arcanos Mayores como Menores con sus respectivas posiciones y orientaciones (derecha o invertida).
+
+${pregunta ? `Pregunta o consulta del usuario: "${pregunta}"` : 'Consulta general'}
+
+Cartas seleccionadas:
+${resumenCartas.join('\n')}
+
+Proporciona:
+1. Una síntesis y balance general de la lectura (relevancia de Arcanos Mayores vs Menores, fluidez vs bloqueos).
+2. Un desglose interpretativo claro combinando la carta, su posición y su relación con las demás.
+3. Una conclusión o consejo místico final para la persona.`;
+
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contents: [{ parts: [{ text: promptTexto }] }]
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.candidates && data.candidates[0].content.parts[0].text) {
+          cuadroTxt.value = data.candidates[0].content.parts[0].text;
+        } else {
+          cuadroTxt.value = "Error al recibir respuesta. Revisa tu clave API o intenta de nuevo.\n\nDetalles: " + JSON.stringify(data);
+        }
+      } catch (err) {
+        cuadroTxt.value = "Error de conexión: " + err.message;
+      } finally {
+        btn.disabled = false;
+      }
     }
 
-    let balanceOrientacion = "";
-    if (contadorInvertidas > (posiciones.length / 2)) {
-      balanceOrientacion = "Presencia alta de cartas VOLTEADAS: Señala bloqueos, retrasos o introspección necesaria.";
-    } else {
-      balanceOrientacion = "Mayoría de cartas DERECHAS: La energía fluye directamente hacia la manifestación.";
-    }
-
-    let resultadoFinal = "==================================================\n";
-    resultadoFinal += "🔮 SÍNTESIS ASTRAL Y BALANCE DE LA TIRADA\n";
-    resultadoFinal += "==================================================\n";
-    resultadoFinal += `• Balance energético: ${balanceArcanos}\n`;
-    resultadoFinal += `• Flujo de energía: ${balanceOrientacion}\n\n`;
-    resultadoFinal += "==================================================\n";
-    resultadoFinal += "📋 REVELACIÓN DE CADA CARTA\n";
-    resultadoFinal += "==================================================\n\n";
-    resultadoFinal += desgloseDetallado;
-
-    document.getElementById('cuadroInterpretacion').value = resultadoFinal;
-  }
-
-  generarFormularioTirada();
-</script>
+    generarFormularioTirada();
+  </script>
+</body>
+</html>
