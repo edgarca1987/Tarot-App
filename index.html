@@ -188,7 +188,6 @@
       letter-spacing: 1px;
     }
 
-    /* BOTÓN Y PANEL FLOTANTE DE API KEY DISCRETO */
     .api-floating-btn {
       position: fixed;
       bottom: 20px;
@@ -266,13 +265,11 @@
     <div class="subtitulo">Lectura Astral e Interpretación de Arcanos</div>
   </div>
 
-  <!-- Pregunta o Consulta -->
   <div class="bloque">
     <label for="preguntaInput">❓ Pregunta o tema de la consulta (Opcional):</label>
-    <input type="text" id="preguntaInput" placeholder="Ej: ¿Tendré novio para diciembre?">
+    <input type="text" id="preguntaInput" placeholder="Ej: Me voy a pegar la lotería">
   </div>
 
-  <!-- Selección de tirada -->
   <div class="bloque">
     <label for="tipoTirada">📜 Selecciona el tipo de tirada</label>
     <select id="tipoTirada" onchange="generarFormularioTirada()">
@@ -282,23 +279,19 @@
     </select>
   </div>
 
-  <!-- Selección de Cartas -->
   <div class="bloque">
     <h2>🎴 Cartas Seleccionadas</h2>
     <div id="contenedorPosiciones"></div>
     <button class="btn-principal" id="btnInterpretar" onclick="interpretarTirada()">✨ Revelar Oráculo ✨</button>
   </div>
 
-  <!-- Resultado -->
   <div class="bloque">
     <h3>🔮 Revelación del Oráculo</h3>
     <textarea id="cuadroInterpretacion" rows="18" readonly placeholder="La interpretación del Oráculo aparecerá aquí..."></textarea>
   </div>
 
-  <!-- Botón Discreto de API Key (Llave) -->
   <button class="api-floating-btn" onclick="toggleApiPanel()" title="Configuración de API Key">🔑</button>
 
-  <!-- Panel Desplegable de API Key -->
   <div class="api-panel" id="apiPanel">
     <h4>🔑 Clave API de Gemini</h4>
     <p>Opcional: Si ingresas tu clave, la interpretación se generará con Inteligencia Artificial. Si la dejas vacía, la app usará el material interno del Oráculo.</p>
@@ -307,9 +300,7 @@
   </div>
 
   <script>
-    // --- BASE DE DATOS LOCAL DE SIGNIFICADOS DEL TAROT ---
     const baseSignificados = {
-      // Arcanos Mayores
       "EL LOCO": { derecha: "Nuevos comienzos, inocencia, libertad, fe en el futuro y dar un salto de fe.", invertida: "Imprudencia, riesgos innecesarios, descuido, estancamiento por miedo o decisiones precipitadas.", afirmativo: true },
       "EL MAGO": { derecha: "Manifestación, recursos disponibles, fuerza de voluntad, habilidad y poder de acción.", invertida: "Manipulación, engaño, talentos no aprovechados, confusión o falta de dirección.", afirmativo: true },
       "LA SUMA SACERDOTISA": { derecha: "Intuición, sabiduría interior, misterio, paciencia y conocimiento oculto.", invertida: "Secretos revelados, desconexión de la intuición, superficialidad o represión emocional.", afirmativo: true },
@@ -333,7 +324,6 @@
       "EL JUICIO": { derecha: "Renacimiento, llamada interior, perdón, evaluación y toma de decisiones firmes.", invertida: "Dudas internas, autocrítica destructiva, postergación de decisiones importantes.", afirmativo: true },
       "EL MUNDO": { derecha: "Cierre exitoso, plenitud, logro, viaje completado e integración total.", invertida: "Falta de cierre, tareas incompletas, retraso en alcanzar metas.", afirmativo: true },
 
-      // Arcanos Menores
       "Bastos": "Relacionado con la energía, creatividad, pasión, proyectos laborales y voluntad de acción.",
       "Copas": "Relacionado con los sentimientos, el amor, las emociones, la intuición y las relaciones personales.",
       "Espadas": "Relacionado con la mente, los pensamientos, la verdad, los desafíos y las decisiones difíciles.",
@@ -465,7 +455,6 @@
 
       btn.disabled = true;
 
-      // SI HAY API KEY -> USAR GEMINI IA
       if (apiKey) {
         cuadroTxt.value = "Consultando con las estrellas y la IA... Por favor espera un momento 🔮";
         let resumen = lecturasPosiciones.map(item => {
@@ -475,7 +464,10 @@
 
         let instrucciónEspecial = "";
         if (tipo === "sino") {
-          instrucciónEspecial = `\n\nIMPORTANTE: Esta es una tirada de Respuesta SÍ / NO. Tras hacer el análisis, concluye OBLIGATORIAMENTE al final de todo el texto con una línea final clara que responda directamente a la pregunta con SÍ o NO (por ejemplo: "VEREDICTO FINAL: Sí, tendrás novio para diciembre" o "VEREDICTO FINAL: No, no tendrás novio para diciembre").`;
+          instrucciónEspecial = `\n\nIMPORTANTE: Esta es una tirada de Respuesta SÍ / NO. Tras hacer el análisis, concluye OBLIGATORIAMENTE al final de todo el texto con una línea final estructurada así:
+"VEREDICTO FINAL: Sí, las energías son favorables. Para que se concrete tu pregunta: '[Pregunta con comillas]'."
+o bien:
+"VEREDICTO FINAL: No, hay bloqueos. Para que se concrete tu pregunta: '[Pregunta con comillas]'."`;
         }
 
         const promptTexto = `Eres un tarotista profesional con profundo conocimiento místico y simbólico.
@@ -503,9 +495,7 @@ Proporciona:
         } finally {
           btn.disabled = false;
         }
-      } 
-      // SI NO HAY API KEY -> MODO LOCAL CON MATERIAL INTERNO
-      else {
+      } else {
         cuadroTxt.value = "Revelando los arcanos desde el oráculo interno... 📜";
         setTimeout(() => {
           cuadroTxt.value = generarLecturaLocal(lecturasPosiciones, pregunta, tipo);
@@ -514,7 +504,6 @@ Proporciona:
       }
     }
 
-    // GENERADOR DE LECTURAS LOCAL (SIN API)
     function generarLecturaLocal(lecturas, pregunta, tipo) {
       let resultado = "=========================================\n";
       resultado += "       🔮 LECTURA DEL ORÁCULO 🔮       \n";
@@ -539,14 +528,12 @@ Proporciona:
             const sig = baseSignificados[carta.nombre];
             if (sig) {
               resultado += `  Significado: ${carta.invertida ? sig.invertida : sig.derecha}\n`;
-              // Evaluación de Sí/No
               if (!carta.invertida && sig.afirmativo) puntosAfirmativos += 2;
               else puntosNegativos += 2;
             } else {
               resultado += `  Representa las fuerzas arquetípicas en tu camino.\n`;
             }
           } else {
-            // Arcanos Menores
             let palo = "";
             if (carta.nombre.includes("Bastos")) palo = "Bastos";
             else if (carta.nombre.includes("Copas")) palo = "Copas";
@@ -568,7 +555,6 @@ Proporciona:
       resultado += "-----------------------------------------\n";
       resultado += "Las cartas revelan un mapa de tus energías actuales. Recuerda que los arcanos señalan tendencias e influencias, pero el libre albedrío y tus decisiones moldean siempre el resultado final.\n\n";
 
-      // AGREGAR VEREDICTO DE SÍ / NO AL FINAL SI ES ESTA TIRADA
       if (tipo === "sino") {
         resultado += "-----------------------------------------\n";
         resultado += "📢 VEREDICTO DEL ORÁCULO (SÍ / NO):\n";
@@ -578,9 +564,9 @@ Proporciona:
         const textoPregunta = pregunta ? pregunta.replace(/^[¿?]+|[¿?]+$/g, '').trim() : "tu consulta";
 
         if (esSi) {
-          resultado += `✅ SÍ, las energías son favorables para que se concrete: "${textoPregunta}".`;
+          resultado += `✅ SÍ, las energías son favorables. Para que se concrete tu pregunta: "${textoPregunta}".`;
         } else {
-          resultado += `❌ NO, actualmente hay bloqueos o retrasos que dificultan que se concrete: "${textoPregunta}".`;
+          resultado += `❌ NO, actualmente hay bloqueos o retrasos. Para que se concrete tu pregunta: "${textoPregunta}".`;
         }
       }
 
