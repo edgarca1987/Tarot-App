@@ -194,10 +194,10 @@
     <div class="subtitulo">Lectura e Interpretación Astral en Tiempo Real</div>
   </div>
 
-  <!-- Configuración de API Key -->
+  <!-- Configuración de API Key precargada -->
   <div class="bloque">
     <label for="apiKeyInput">🔑 Clave API de Gemini:</label>
-    <input type="password" id="apiKeyInput" placeholder="Ingresa tu GEMINI_API_KEY aquí...">
+    <input type="password" id="apiKeyInput" value="AQ.Ab8RN6IwoZEanScQmLDw9_jgupjvGY0XFjMECHiWbzYx8uLTfA" placeholder="Ingresa tu GEMINI_API_KEY aquí...">
     <label for="preguntaInput">❓ Pregunta o tema de la consulta (Opcional):</label>
     <input type="text" id="preguntaInput" placeholder="Ej: ¿Qué debo tomar en cuenta para mi decisión laboral?">
   </div>
@@ -302,8 +302,8 @@
       const btn = document.getElementById('btnInterpretar');
       const pregunta = document.getElementById('preguntaInput').value.trim();
 
-      if (!apiKey) {
-        alert("Por favor ingresa tu API Key para conectar con el servicio en línea.");
+      if (!apiKey || apiKey === "TU_CLAVE_API_AQUI") {
+        alert("Por favor ingresa tu clave API válida en el código o en la casilla correspondiente.");
         return;
       }
 
